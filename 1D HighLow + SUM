@@ -1,0 +1,45 @@
+// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+import java.util.Scanner;
+
+class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter Your Array Size : ");
+        int size = scanner.nextInt();
+        
+        System.out.println();
+        
+        System.out.println("Array");
+        
+        int[] ray = new int [size];
+        
+        for(int i = 0; i<size; i++ ){
+            System.out.print("ELEMENT INDEX [" + i + "] : ");
+            ray [i] = scanner.nextInt();
+        }
+        
+        int highest = ray[0];
+        int lowest = ray[0];
+        
+        for(int i = 0; i<size; i++ ){
+            if (highest < ray[i]) {
+                highest = ray[i];
+            } if (lowest > ray[i]) {
+                lowest = ray[i];
+            }
+            
+        }
+        int sum = 0;
+        
+        for(int i = 0; i<size; i++ ){
+            sum += ray[i];
+        }
+         System.out.println();
+        System.out.println("HIGHEST VALUE : " + highest);  
+        System.out.println("LOWEST VALUE : " + lowest);    
+        System.out.println("SUM VALUE : " + sum);    
+
+    }
+}
