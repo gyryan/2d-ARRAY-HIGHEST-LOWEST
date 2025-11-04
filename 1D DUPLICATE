@@ -42,14 +42,13 @@ class Main {
         for (int i = 0; i < size; i++) {
             for (int j = i + 1; j < size; j++) { 
                 if (aray[i] == aray[j]) {
-                    System.out.println("Duplicate found: " + aray[i]);
+                    System.out.println("Duplicate found: " + aray[i] + "\nELEMENT INDEX AT [" + i + "] & [" + j + "]" );
                     hasDuplicate = true;
                 }
             }
         }
         if (!hasDuplicate) {
-            System.out.println("No duplicates found.");
-        }
+            System.out.println("No duplicates");
 
         System.out.println("\nHighest Value: " + highest);
         System.out.println("Lowest Value: " + lowest);
