@@ -1,0 +1,84 @@
+import java.util.Scanner;
+
+public class Payroll2D {
+
+    static int numEmployees;
+    static String[] employeeNames;
+    static double[][] data; 
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        DataEntry();
+        DTR();
+        Transaction();
+        Display();
+    }
+
+    public static void DataEntry() {
+        System.out.print("Enter number of employees: ");
+        numEmployees = scanner.nextInt();
+        scanner.nextLine(); 
+
+        employeeNames = new String[numEmployees];
+        data = new double[numEmployees][9]; 
+    }
+
+    public static void DTR() {
+        for (int i = 0; i < numEmployees; i++) {
+            System.out.print("\nEnter employee name: ");
+            employeeNames[i] = scanner.nextLine();
+
+            System.out.print("Enter Rendered Hours for " + employeeNames[i] + ": ");
+            data[i][0] = scanner.nextDouble();
+
+            System.out.print("Enter Rate per Hour for " + employeeNames[i] + ": ");
+            data[i][1] = scanner.nextDouble();
+
+            System.out.print("Enter Undertime Hours for " + employeeNames[i] + ": ");
+            data[i][2] = scanner.nextDouble();
+
+            System.out.print("Enter Undertime Hour Rate for " + employeeNames[i] + ": ");
+            data[i][3] = scanner.nextDouble();
+
+            System.out.print("Enter Overtime Hours for " + employeeNames[i] + ": ");
+            data[i][4] = scanner.nextDouble();
+
+            System.out.print("Enter Overtime Hour Rate for " + employeeNames[i] + ": ");
+            data[i][5] = scanner.nextDouble();
+
+            System.out.print("Enter Other Deductions for " + employeeNames[i] + ": ");
+            data[i][6] = scanner.nextDouble();
+
+            scanner.nextLine(); 
+        }
+    }
+
+    public static void Transaction() {
+        for (int i = 0; i < numEmployees; i++) {
+            double basicSalary = (data[i][0] * data[i][1]) + (data[i][4] * data[i][5]);
+            double totalDeduction = (data[i][2] * data[i][3]) + data[i][6];
+            double netPay = basicSalary - totalDeduction;
+
+            data[i][7] = basicSalary;
+            data[i][8] = netPay;
+        }
+    }
+
+    public static void Display() {
+        System.out.println("\n===== Payroll Summary =====\n");
+
+        for (int i = 0; i < numEmployees; i++) {
+            System.out.println("Employee Name: " + employeeNames[i]);
+            System.out.println("Rendered Hours: " + data[i][0]);
+            System.out.println("Rate per Hour: " + data[i][1] + " PHP");
+            System.out.println("Undertime Hours: " + data[i][2]);
+            System.out.println("Undertime Hour Rate: " + data[i][3] + " PHP");
+            System.out.println("Overtime Hours: " + data[i][4]);
+            System.out.println("Overtime Hour Rate: " + data[i][5] + " PHP");
+            System.out.println("Other Deductions: " + data[i][6] + " PHP");
+            System.out.println("Basic Salary: " + data[i][7] + " PHP");
+            System.out.println("Net Pay: " + data[i][8] + " PHP");
+            System.out.println("--------------------------------------");
+        }
+    }
+}
