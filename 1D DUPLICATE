@@ -1,32 +1,46 @@
+package duplic;
+
 import java.util.Scanner;
 
-class Main {
+public class duplic {
+    static Scanner scanner = new Scanner(System.in);
+    static int size;
+    static int[] aray;
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        
+        Size();
+        Display();
+        Highlow();
+        Duplicate();
+    }
+
+    
+    public static void Size() {
         System.out.print("Enter Your Array Size : ");
-        int size = scanner.nextInt();
-        
-        int[] aray = new int[size];
-        
+        size = scanner.nextInt();
+        aray = new int[size];
+
         for (int i = 0; i < size; i++) {
             System.out.print("ELEMENT INDEX [" + i + "] : ");
             aray[i] = scanner.nextInt();
         }
+    }
 
-       
+   
+    public static void Display() {
         System.out.println("\nDISPLAY OF ARRAY:");
         for (int i = 0; i < size; i++) {
-            System.out.print(aray[i] + " "); 
+            System.out.print(aray[i] + " ");
         }
         System.out.println();
+    }
 
-
+    
+    public static void Highlow() {
         int highest = aray[0];
         int lowest = aray[0];
         int sum = 0;
 
-        
         for (int i = 0; i < size; i++) {
             if (aray[i] > highest) {
                 highest = aray[i];
@@ -34,24 +48,55 @@ class Main {
             if (aray[i] < lowest) {
                 lowest = aray[i];
             }
-            sum += aray[i];
+            sum = sum + aray[i];
         }
-
-       
-        boolean hasDuplicate = false;
-        for (int i = 0; i < size; i++) {
-            for (int j = i + 1; j < size; j++) { 
-                if (aray[i] == aray[j]) {
-                    System.out.println("Duplicate found: " + aray[i] + "\nELEMENT INDEX AT [" + i + "] & [" + j + "]" );
-                    hasDuplicate = true;
-                }
-            }
-        }
-        if (!hasDuplicate) {
-            System.out.println("No duplicates");
 
         System.out.println("\nHighest Value: " + highest);
         System.out.println("Lowest Value: " + lowest);
         System.out.println("Sum of the array: " + sum);
+    }
+
+   
+    public static void Duplicate() {
+        boolean hasDuplicate = false;
+        int duplicateCount = 0;
+
+        
+
+        for (int i = 0; i < size; i++) {
+            boolean meron = false;
+
+            
+            for (int k = 0; k < i; k++) {
+                if (aray[i] == aray[k]) {
+                    meron = true;
+                    break;
+                }
+            }
+
+            if (!meron) {
+                int count = 0;
+                String indices = ""; // just a plain string
+
+                for (int j = 0; j < size; j++) {
+                    if (aray[i] == aray[j]) {
+                        count++;
+                        indices = indices + "[" + j + "] ";
+                    }
+                }
+
+                if (count > 1) {
+                    hasDuplicate = true;
+                    duplicateCount++;
+                    System.out.println("Duplicate value: " + aray[i] + " appears " + count + " times at indices " + indices);
+                }
+            }
+        }
+
+        if (!hasDuplicate) {
+            System.out.println("No duplicates found.");
+        } else {
+            System.out.println("\nTotal distinct duplicate values found: " + duplicateCount);
+        }
     }
 }
