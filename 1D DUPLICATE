@@ -1,102 +1,128 @@
-package duplic;
-
 import java.util.Scanner;
 
-public class duplic {
+public class duplic2 {
     static Scanner scanner = new Scanner(System.in);
-    static int size;
-    static int[] aray;
+    static int col, row;
+    static int[][] ray;
 
     public static void main(String[] args) {
+        Title();
         Size();
         Display();
         Highlow();
         Duplicate();
     }
 
-    
+     public static void Title() {
+        System.out.println("=======================================");
+        System.out.println("                ARRAY      ");
+        System.out.println("=======================================\n");
+    }
+     
     public static void Size() {
-        System.out.print("Enter Your Array Size : ");
-        size = scanner.nextInt();
-        aray = new int[size];
+        System.out.print("Enter The Row of the Array: ");
+        row = scanner.nextInt();
 
-        for (int i = 0; i < size; i++) {
-            System.out.print("ELEMENT INDEX [" + i + "] : ");
-            aray[i] = scanner.nextInt();
+        System.out.print("Enter The Column of the Array: ");
+        col = scanner.nextInt();
+
+        ray = new int[row][col];
+
+        System.out.println("Enter Your Value");
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                System.out.print("INDEX [" + i + "][" + j + "]: ");
+                ray[i][j] = scanner.nextInt();
+            }
         }
+        System.out.println("\n---------------------------------------");
     }
 
-   
     public static void Display() {
         System.out.println("\nDISPLAY OF ARRAY:");
-        for (int i = 0; i < size; i++) {
-            System.out.print(aray[i] + " ");
+        System.out.println("\n---------------------------------------");
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                System.out.print(ray[i][j] + " ");
+            }
+            System.out.println();
         }
-        System.out.println();
+        System.out.println("\n---------------------------------------");
     }
 
-    
     public static void Highlow() {
-        int highest = aray[0];
-        int lowest = aray[0];
+        int highest = ray[0][0];
+        int lowest = ray[0][0];
         int sum = 0;
 
-        for (int i = 0; i < size; i++) {
-            if (aray[i] > highest) {
-                highest = aray[i];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (ray[i][j] > highest) {
+                    highest = ray[i][j];
+                }
+                if (ray[i][j] < lowest) {
+                    lowest = ray[i][j];
+                }
+                sum += ray[i][j];
             }
-            if (aray[i] < lowest) {
-                lowest = aray[i];
-            }
-            sum = sum + aray[i];
         }
-
+        System.out.println("\n---------------------------------------");
         System.out.println("\nHighest Value: " + highest);
         System.out.println("Lowest Value: " + lowest);
         System.out.println("Sum of the array: " + sum);
+        System.out.println("\n---------------------------------------");
     }
 
-   
     public static void Duplicate() {
         boolean hasDuplicate = false;
         int duplicateCount = 0;
+        System.out.println("\n---------------------------------------");
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                int current = ray[i][j];
+                boolean alreadyChecked = false;
 
-        
-
-        for (int i = 0; i < size; i++) {
-            boolean meron = false;
-
-            
-            for (int k = 0; k < i; k++) {
-                if (aray[i] == aray[k]) {
-                    meron = true;
-                    break;
+                
+                for (int x = 0; x <= i; x++) {
+                    for (int y = 0; y < col; y++) {
+                        if (x == i && y >= j) break;
+                        if (ray[x][y] == current) {
+                            alreadyChecked = true;
+                            break;
+                        }
+                    }
+                    if (alreadyChecked) break;
                 }
-            }
 
-            if (!meron) {
+                if (alreadyChecked) continue;
+
                 int count = 0;
-                String indices = ""; // just a plain string
+                String indices = "";
 
-                for (int j = 0; j < size; j++) {
-                    if (aray[i] == aray[j]) {
-                        count++;
-                        indices = indices + "[" + j + "] ";
+                
+                for (int m = 0; m < row; m++) {
+                    for (int n = 0; n < col; n++) {
+                        if (ray[m][n] == current) {
+                            count++;
+                            indices += "[" + m + "][" + n + "] ";
+                        }
                     }
                 }
 
                 if (count > 1) {
                     hasDuplicate = true;
                     duplicateCount++;
-                    System.out.println("Duplicate value: " + aray[i] + " appears " + count + " times at indices " + indices);
+                    System.out.println("\nDuplicate value: " + current + 
+                        " appears " + count + " times at indices " + indices);
                 }
             }
         }
 
         if (!hasDuplicate) {
-            System.out.println("No duplicates found.");
+            System.out.println("\nNo duplicates found.");
         } else {
             System.out.println("\nTotal distinct duplicate values found: " + duplicateCount);
         }
+        System.out.println("\n---------------------------------------");
     }
 }
